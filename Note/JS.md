@@ -279,4 +279,8 @@ let newArr = arr.reduce(function(acc, v, i, arr){
 * `every` : 모든 요소가 조건을 만족하는지 확인. 
 
 
+
+
+
+
 ## `출처` : 코드잇 <https://www.codeit.kr/>
