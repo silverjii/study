@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forEach, map, filter, find, some, every</title>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <script>
+        // ✔️ forEach와 map ✔️ 
+
+        const members = ['태훈', '영훈', '민수', '철수'];
+        
+        members.forEach((member, i) => {
+            console.log(`${i} ${member}님이 입장`);
+        });
+        // console : 0 태훈님이 입장  1 영훈님이 입장  2 민수님이 입장  3 철수님이 입장
+        
+        //-------------------------------------------------------
+
+        const firstNames = ['윤수', '영훈', '태호', '태진'];
+        const lastNames = ['김', '이', '박', '최'];
+
+        firstNames.forEach((firstName, i) =>{
+            console.log(`${lastNames[i]}${firstName}님이 입장`)
+        });
+        // console : 김윤수  이영훈  박태호  최태진
+        //-------------------------------------------------------
+
+        const fullNames = firstNames.map((firstname, i) =>{
+            return lastNames[i] + firstname;
+        });
+        // arrow function으로 변환하면
+        // const fullNames = firstNames.map((firstName, i) => lastNames[i] + firstName);
+        
+
+        console.log(fullNames);
+        // console : (4) ['김윤수', '이영훈', '박태호', '최태진']
+        //-------------------------------------------------------
+
+        // forEach와 map 메소드의 최대 반복 횟수는 메소드를 처음 호출할 때 그 당시 요소의 개수
+        const team = ['태훈', '영훈', '민수', '철수'];
+        
+        //반복할 때마다 배열에 추가할 때.
+        team.forEach((member) =>{
+            console.log(`${member}님이 입장`);
+            team.push('son'); // 매번 반복할 때마다 배열에 추가해도 무한루프에 빠지지 않음. 딱 4번만 동작함.
+            //console : 태훈님이 입장  영훈님이 입장  민수님이 입장  철수님이 입장 
+        });
+
+        //반복할 때마다 배열의 길이 줄어들 때
+        team.forEach((member) =>{
+            console.log(`${member}님이 입장`);
+            team.pop(); // 반복 횟수 줄어듬. 2번만 동작함.
+            //console : 태훈님이 입장  영훈님이 입장 
+        })
+        // ========================================================
+
+
+
+
+
+        // ✔️ filter와 find ✔️ 
+        const devices = [
+            {name : 'iPone', brand : 'Apple'},
+            {name : 'Galaxy', brand : 'Samsung'},
+            {name : 'SurfacePro', brand : 'Microsoft'},
+            {name : 'Gram', brand : 'LG'},
+            {name : 'iMac', brand : 'Apple'},
+            {name : 'Zenbook', brand : 'Asus'},
+            {name : 'GalaxyBuds', brand : 'Samsung'},
+        ];
+
+        const apples = devices.filter((el) => el.brand === 'Apple');
+        console.log(apples)
+        // console : (2) [{…}, {…}] 
+
+        const samsungs = devices.find((el) => el.brand === 'Samsung');
+        console.log(samsungs)
+        // console : {name: 'Galaxy', brand: 'Samsung'}
+        // ========================================================
+
+
+
+
+        // ✔️ some과 every ✔️ 
+        const numbers = [1, 3, 5, 7, 9];
+        
+        const someReturn = numbers.some((el) => el > 5);
+        const everyReturn = numbers.every((el) => el > 5);
+
+        console.log('some :', someReturn); // console : some : true
+        console.log('every :', everyReturn); // console : every : false
+
+        const someReturn1 = numbers.some((el, i) => {
+            console.log(`some :`, i);
+            return el > 5;
+        });
+        // console : some : 0   some : 1    some : 2   some : 3  
+        // 조건을 만족하는 7값이 조건을 만족하기 때문에 4번만 동작
+
+        const everyReturn1 = numbers.every((el, i) => {
+            console.log(`every :`, i);
+            return el > 5;
+        });
+        // console : every : 0
+        // 조건이 만족하지 않는 순간 반복 종료
+        // 1이 5보다 크지 않기 때문에 1만 확인해 보고 반복 종료  
+
+        console.log(`some :`, someReturn1); // console : true
+        console.log(`every :`, everyReturn1); // console : false
+        // ========================================================
+
+        
+
+       // ✔️ reduce ✔️ 
+
+       const num = [1, 2, 3, 4];
+
+       const sumAll = num.reduce((acc, el, i) => {
+        console.log(`${i}번 index의 요소로 콜백함수가 동작중입니다.`);
+        console.log(`acc : `, acc);
+        console.log(`el : `, el);
+        console.log('-----------------');
+
+        return acc + el;
+       });
+       // console
+       // 1번 index의 요소로 콜백함수가 동작중입니다.
+       // acc : 1
+       // el : 2
+       // 2번 index의 요소로 콜백함수가 동작중입니다.
+       // acc : 3
+       // el : 3
+       // 3번 index의 요소로 콜백함수가 동작중입니다.
+       // acc : 6
+       // el : 4
+
+       console.log('sumAll : ', sumAll)
+       // console : sumAll : 10
+    </script>
+</body>
+</html>
